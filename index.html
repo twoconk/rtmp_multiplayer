@@ -1,0 +1,176 @@
+<html>    
+    
+<head>         
+    <meta charset="utf-8">
+    <title>RTMP多视频取流演示客户端</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      
+      .form-url input[type="text"],
+      .form-url input[type="password"] {
+        font-size: 14px;
+        height: auto;
+        margin-bottom: 2px;
+        padding: 2px 9px;
+      }
+    </style>
+    <link href="static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+ 
+
+</head>    
+    
+<body >    
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">RTMP多视频取流演示客户端</a> 
+        </div>
+      </div>
+    </div> 
+
+    <div class="container"> 
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4" id = "span_container"> 
+		    <div class="thumbnail">
+		      <div id="container_1">
+				<img data-src="holder.js/300x200" alt="">
+		      </div> 
+		      <p><div class = "form-url"> 
+		      <input type="text" placeholder="rtmp地址" value="rtmp://"  id="input_1" class="span2"> <button type="submit" id="play_1" class="btn btn-success" onclick = "javascript:play(1)">播放</button></div> 
+		      </p>
+		    </div> 
+        </div>
+        <div class="span4">  
+		    <div class="thumbnail">
+		      <div id="container_2">
+			<img data-src="holder.js/300x200" alt="">
+		      </div> 
+		      <p><div class = "form-url"> 
+		      <input type="text" placeholder="rtmp地址" value="rtmp://"  id="input_2" class="span2"> <button type="submit" id="play_2" class="btn btn-success" onclick = "javascript:play(2)">播放</button></div> 
+		      </p>
+		    </div> 
+       </div>
+        <div class="span4"> 
+		    <div class="thumbnail">
+		      <div id="container_3">
+			<img data-src="holder.js/300x200" alt="">
+		      </div> 
+		      <p><div class = "form-url"> 
+		      <input type="text" placeholder="rtmp地址" value="rtmp://"  id="input_3"  class="span2"> <button type="submit" id="play_3" class="btn btn-success" onclick = "javascript:play(3)">播放</button></div> 
+		      </p>
+		    </div> 
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span4" id = "span_container"> 
+		    <div class="thumbnail">
+		      <div id="container_4">
+			<img data-src="holder.js/300x200" alt="">
+		      </div> 
+		      <p><div class = "form-url"> 
+		      <input type="text" placeholder="rtmp地址" value="rtmp://"  id="input_4" class="span2"> <button type="submit" id="play_4" class="btn btn-success" onclick = "javascript:play(4)">播放</button></div> 
+		      </p>
+		    </div> 
+        </div>
+        <div class="span4"> 
+		    <div class="thumbnail">
+		      <div id="container_5">
+			<img data-src="holder.js/300x200" alt="">
+		      </div> 
+		      <p><div class = "form-url"> 
+		      <input type="text" placeholder="rtmp地址" value="rtmp://" id="input_5"  class="span2"> <button type="submit" id="play_5" class="btn btn-success" onclick = "javascript:play(5)">播放</button></div> 
+		      </p>
+		    </div> 
+       </div>
+        <div class="span4"> 
+	    <div class="thumbnail">
+	      <div id="container_6" >
+		<img data-src="holder.js/300x200" alt="">
+	      </div> 
+	      <p ><div class = "form-url "> 
+			<input type="text" placeholder="rtmp地址" value="rtmp://"  id="input_6"  class="span2"> <button type="submit" id="play_6" class="btn btn-success" onclick = "javascript:play(6)">播放</button></div> 
+	      </p>
+	    </div> 
+        </div>
+      </div>
+      <hr>
+
+      <footer>
+        <p>&copy; <a href="http://iscxy.com" target="_blank">爱上程序员</a> 2017 </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="static/bootstrap/js/jquery.js"></script>
+    <script src="static/bootstrap/js/holder.min.js"></script> 
+
+
+	<script type="text/javascript" src="JwPlayer/jwplayer.js"></script> 
+	<script type="text/javascript">  
+	var player = new Array();  
+	function play(tag)
+	{
+	var container = "container_"+tag;
+	var input = "#input_"+tag;
+	var input_value = $(input).val();
+	if (input_value.length==0){
+		$(input).attr('placeholder',"请输入rtmp地址")
+		return;
+	}
+	var rtmp_url = input_value;//"test.mp4";//local file
+	var play_btn = "#play_"+tag;
+	var thePlayer = player[tag];
+	if (typeof(thePlayer) != "undefined"){  
+		if(thePlayer.getState() != 'PLAYING'){  
+			thePlayer.play(true);   
+			$(play_btn).text('暂停');  
+		}else {  
+			thePlayer.play(false);  
+			$(play_btn).text('播放');  
+		}                              
+		return;
+	}
+	    var width_par = 300;
+	    var height_par = 200;
+	    thePlayer = jwplayer(container).setup({     
+		file: rtmp_url,    
+		height: height_par,    
+		width: width_par,       
+		streamer:"start",    
+		provider:"rtmp",  
+		modes :[  
+		{type:"html5"}  
+		]});   
+	   thePlayer.play(true); 
+		player[tag] = thePlayer;	   
+			$(play_btn).text('暂停');   
+	   jwplayer(container).onPlay(function () {
+			$(play_btn).text('暂停');    });
+	   jwplayer(container).onPause(function () {
+			$(play_btn).text('播放');   });
+	}	
+	    
+	</script>    
+</body>    
+</html>    
